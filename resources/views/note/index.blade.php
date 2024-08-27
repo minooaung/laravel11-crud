@@ -3,8 +3,19 @@
         <a href="{{ route('note.create') }}" class="new-note-btn">
             Create New Note
         </a>
-        
+
         <div class="notes">
+            <!-- Search Form -->
+            <form method="GET" action="{{ route('note.index') }}" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search notes" value="{{ request()->input('search') }}">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+
+            @if($notes->isEmpty())
+                <p style="text-align: center; font-size: large;" class="py-12">No records found</p>
+            @else
             <table class="table table-hover">
                 <thead>
                   <tr>
@@ -33,12 +44,14 @@
                       </td>
                     </tr>
                     @endforeach
+                </tbody>
             </table>
             <div>
                 {{ $notes->links('pagination::bootstrap-5') }}
             </div>
+            @endif
         </div>
-        
-        
+
+
     </div>
 </x-app-layout>
