@@ -1,6 +1,9 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 
 * {
@@ -12,17 +15,17 @@
   margin: 0 auto;
 }
 .new-note-btn {
-  width: 200px;
+  width: 250px;
   display: block;
   margin: 0 auto 20px;
   background-color: #fff;
   padding: 10px 32px;
   border: 1px solid #e0e0e0;
-  font-size: 26px;
+  font-size: 18px;
   outline: 0;
   transition: all 0.3s;
   cursor: pointer;
-  font-family: 'Caveat', cursive;
+  /* font-family: 'Caveat', cursive; */
   text-align: center;
   text-decoration: none;
   color: #1e1e1e
@@ -35,7 +38,8 @@
   top: 1px;
 }
 .notes {
-  display: flex;
+  width: 80%;
+  /* display: flex; */
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 auto;
@@ -83,11 +87,11 @@
   opacity: 1;
 }
 .note-buttons {
-  text-align: right;
-  padding: 10px;
+  text-align: center;
+  /* padding: 10px; */
   display: flex;
   gap: 5px;
-  justify-content: end;
+  /* justify-content: end; */
 }
 
 .note-buttons .note-cancel-button {

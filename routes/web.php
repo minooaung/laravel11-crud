@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,12 @@ Route::middleware(["auth","verified"])->group(function () {
     // Route::get('/note/{id}/edit', [NoteController::class, 'edit'])->name('note.edit');
     // Route::put('/note/{id}', [NoteController::class, 'update'])->name('note.update');
     // Route::delete('/note/{id}', [NoteController::class, 'destroy'])->name('note.destroy');
-
     // (or)
-
     Route::resource('note', NoteController::class);
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    // (or)
+    //Route::resource('user', UserController::class);
 
 });
 
