@@ -10,19 +10,30 @@ class NoteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $notes = Note::query()
-        ->where("user_id", auth()->user()->id)
-        ->orderBy("created_at","desc")
-        ->paginate(10);
+        $searchString = $request->input('search');
 
-        // (or)
-        // $notes = Note::query()
-        // ->where("user_id", request()->user()->id)
-        // ->orderBy("created_at","desc")
-        // ->paginate();
-        
+        //$notes = Note::query()->where('user_id', auth()->user()->id)
+        $notes = Note::where('user_id', auth()->user()->id)
+                ->where(function($query) use ($searchString) {
+                    $query->where('note', 'like', "%{$searchString}%");
+                })
+                ->orderBy("created_at","desc")
+                ->paginate(10);
+
+//        $notes = Note::query()
+//        ->where("user_id", auth()->user()->id)
+//        ->orderBy("created_at","desc")
+//        ->paginate(10);
+//
+//         (or)
+//
+//         $notes = Note::query()
+//         ->where("user_id", request()->user()->id)
+//         ->orderBy("created_at","desc")
+//         ->paginate();
+
         return view('note.index', ['notes'=> $notes]);
     }
 
@@ -44,7 +55,7 @@ class NoteController extends Controller
         ]);
 
         //dd($request);
-        
+
         $data['user_id'] = $request->user()->id;
 
         $note = Note::create($data);
@@ -87,11 +98,11 @@ class NoteController extends Controller
         if ($note->user_id !== request()->user()->id) {
             abort(403,'Not allowed to update this record');
         }
-        
+
         $data = $request->validate([
             'note'=> ['required', 'string']
         ]);
-        
+
         $note->update($data);
 
         return redirect()->route('note.show', $note)->with('message','Note was updated');
